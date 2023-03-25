@@ -1,6 +1,6 @@
-name: 'Markdown posts to Wordpress'
-description: 'for post.'
-author: 'Tom'
+name: 'wp-post-action'
+description: 'Detects markdown files (.md) that have been changed in commits, and posts articles and uploads images to the set wordpress.'
+author: 'tom stonefield'
 inputs: 
   token:
     description: GitHub authentication token
@@ -57,3 +57,6 @@ outputs:
 runs:
   using: 'node16'
   main: 'dist/index.js'
+branding:
+  icon: "upload"
+  color: "blue"
