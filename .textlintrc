@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "prh": {
+      "rulePaths": [
+        "./prh.yml"
+      ]
+    },
+    "ja-unnatural-alphabet": true,
+    "ng-word": {
+      "words": ["word1", "word2"]
+    }
+  }
+}
