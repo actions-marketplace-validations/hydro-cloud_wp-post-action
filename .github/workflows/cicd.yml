@@ -1,0 +1,65 @@
+name: CI/CD
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - name: Run Install
+        run: npm install
+      - name: Run Textlint
+        run: npm run textlint
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run Action hydro-cloud/wp-post-action@0.3.0
+        uses: ./
+        # uses: hydro-cloud/wp-post-action@0.3.0
+        id: run
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          apiUrl: ${{vars.APIURL }}
+          authUser:  ${{ vars.AUTHUSER }}  
+          authPassword: ${{ secrets.AUTHPASSWORD }}
+
+      - name: Result WP-Post
+        run: |
+
+          echo workspace:${{ steps.run.outputs.workspace }}
+          echo ----------
+
+
+          echo apiUrl:${{ steps.run.outputs.apiUrl }}
+          echo authUser:${{ steps.run.outputs.authUser }}
+          echo authPassword:${{ steps.run.outputs.authPassword }}
+          echo exclude:${{ steps.run.outputs.exclude }}
+
+          echo ----------
+
+          echo changedFiles:${{ steps.run.outputs.changedFiles-number }}
+          echo ${{ steps.run.outputs.changedFiles }}
+          echo markdowns:${{ steps.run.outputs.markdowns-number }}
+          echo ${{ steps.run.outputs.markdowns }}
+          echo targets:${{ steps.run.outputs.targets-number }}
+          echo ${{ steps.run.outputs.targets }}
+
+          echo "---"
+
+          echo posts:${{ steps.run.outputs.posts-number }}
+          echo ${{ steps.run.outputs.posts }}
