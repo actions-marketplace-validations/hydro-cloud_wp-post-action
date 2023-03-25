@@ -1,0 +1,59 @@
+name: 'Markdown posts to Wordpress'
+description: 'for post.'
+author: 'Tom'
+inputs: 
+  token:
+    description: GitHub authentication token
+    required: true
+
+    
+  apiUrl:
+    description: for apiUrl
+    required: true
+  authUser:
+    description: for authUser
+    required: true
+  authPassword:
+    description: for authPassword
+    required: true
+    
+  exclude:
+    description: for exclude
+    default: "README.md"
+
+
+outputs:
+  workspace:
+    description: 'workspace'
+
+  apiUrl:
+    description: 'apiUrl'
+  authUser:
+    description: 'authUser'
+  authPassword:
+    description: 'authPassword'
+  exclude:
+    description: 'exclude'
+
+  changedFiles:
+    description: 'changedFiles'
+  changedFiles-number:
+    description: 'changedFiles-number'
+  targets:
+    description: 'targets'
+  targets-number:
+    description: 'targets-number'
+  exists:
+    description: 'exists'
+  exists-number:
+    description: 'exists-number'
+  posts:
+    description: 'posts'
+  posts-number:
+    description: 'posts-number'
+
+  result:
+    description: 'result'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
