@@ -8,7 +8,7 @@ import {Octokit} from '@octokit/rest'
 import * as path from 'path'
 import * as fs from 'fs'
 
-import {wppostAync} from 'wp-post'
+import WPPost from 'wp-post'
 
 interface ResultData {
   baseRef: string
@@ -24,6 +24,7 @@ interface ResultData {
 interface PostData {
   postId: string
   file: string
+  message: string
 }
 
 ;(async () => {
@@ -111,16 +112,32 @@ interface PostData {
 
       for (const file of targets) {
         //
-        const postId: string = await wppostAync(
-          file,
-          apiUrl,
-          authUser,
-          authPassword
-        )
-        result.posts.push({
-          postId: postId,
-          file: file
-        })
+        const wppost = new WPPost(file)
+
+        //
+        try {
+          wppost.checkPost()
+
+          const postId: string = await wppost.postAsync(
+            apiUrl,
+            authUser,
+            authPassword
+          )
+          result.posts.push({
+            postId: postId,
+            file: file,
+            message:""
+          })
+        } catch (error) {
+          const e: Error = error as Error
+
+          result.posts.push({
+            postId: "",
+            file: file,
+            message:e.message
+          })
+          continue
+        }
       }
     }
     //

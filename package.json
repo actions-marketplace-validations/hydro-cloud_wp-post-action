@@ -1,6 +1,6 @@
 {
   "name": "wp-post-action",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Detects markdown files (.md) that have been changed in commits, and posts articles and uploads images to the set wordpress.",
   "main": "dist/index.js",
   "scripts": {
@@ -48,7 +48,7 @@
     "textlint-rule-preset-ja-spacing": "^2.3.0",
     "textlint-rule-prh": "^5.3.0",
     "ts-jest": "^29.0.3",
-    "wp-post": "^1.0.0",
+    "wp-post": "^1.1.0",
     "typescript": "^5.0.2"
   },
   "repository": {
