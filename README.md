@@ -120,7 +120,7 @@ stateDiagram-v2
 
 # Usage
 
-Just make this action **`hydro-cloud/WP-Post`** run in `.github/workflows/action.yml`.
+Just make this action **`hydro-cloud/wp-post-action`** run in `.github/workflows/action.yml`.
 
 
 ```yml:.github/workflows/test.yml
@@ -139,8 +139,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run WP-Post
-        uses: hydro-cloud/WP-Post@1.0.0
+      - name: Run Action hydro-cloud/wp-post-action
+        uses: hydro-cloud/wp-post-action@0.0.2
         id: run
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -148,7 +148,7 @@ jobs:
           authUser:  ${{ vars.AUTHUSER }}  
           authPassword: ${{ secrets.AUTHPASSWORD }}
 
-      - name: Result WP-Post
+      - name: Result WP-Post-Action
         run: |
 
           echo workspace:${{ steps.run.outputs.workspace }}
@@ -176,15 +176,15 @@ jobs:
 
 ```
 It is triggered at the timing of a push.
-`hydro-cloud/WP-Post` extracts *.md*, but can also be triggered by specifying whether a particular file exists in the path.
+`hydro-cloud/wp-post-action` extracts *.md*, but can also be triggered by specifying whether a particular file exists in the path.
 
 Here it is executed in this step and the results are displayed.
-* `- name: Run WP-Post`. 
+* `- name:  Run Action hydro-cloud/wp-post-action`. 
  The action that generates html & posts the article (+ uploads images) is executed.
-* `- name: Result WP-Post`. 
+ Pass the parameters for Wordpress posts `"with"` .
+* `- name: Result WP-Post-Action`. 
 The result is displayed.
 
-`- name: Run WP-Post` and pass the parameters for Wordpress posts *with* this action.
 
 
 * Parameters (with)
@@ -209,7 +209,7 @@ The result is displayed.
 
 ```
 - name: Run WP-Post
-  uses: hydro-cloud/WP-Post@1.0.0
+  uses: hydro-cloud/wp-post-action@0.0.2
   id: run
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
@@ -262,10 +262,12 @@ You can write in normal markdown format with `---` headers and save as `.md`.
 
   ~~~
 
-  >If you specify `status: draft` as in this example, the post will be submitted in draft status.
-  This is the recommended status for testing!
-  See the *status* entry in [Posts](https://developer.wordpress.org/rest-api/reference/posts/) at https://developer.wordpress.org/ for more information.
-  We use the aforementioned [wp-post](https://github.com/hydro-cloud/wp-post) internally, so we hope you will also refer to it.
+  >Specifying `status: draft` as in this example will send the post in draft status.
+  >This is the recommended status for testing.
+
+  >See the post status entry on [Posts](https://developer.wordpress.org/rest-api/reference/posts/) for more information.
+  >In addition, if you do not want to post itself, in addition to specifying the file name in the exclude mentioned above, you can omit the status or leave the content empty.
+  >[wp-post](https://github.com/hydro-cloud/wp-post) , so we hope you will also refer to it.
 
 
 
