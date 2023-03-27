@@ -1,6 +1,6 @@
 {
   "name": "wp-post-action",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Detects markdown files (.md) that have been changed in commits, and posts articles and uploads images to the set wordpress.",
   "main": "dist/index.js",
   "scripts": {
